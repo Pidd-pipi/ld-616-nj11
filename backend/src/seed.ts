@@ -38,7 +38,7 @@ export const seed = {
       "planned_date": "2026-06-11T09:00:00Z",
       "plan_type": "DUE_SOON",
       "priority": "priority 1",
-      "status": "DUE_SOON",
+      "status": "PLANNED",
       "assigned_vendor_id": 1,
       "created_by": "created by 1"
     },
@@ -48,7 +48,7 @@ export const seed = {
       "planned_date": "2026-06-12T09:00:00Z",
       "plan_type": "OVERDUE",
       "priority": "priority 2",
-      "status": "OVERDUE",
+      "status": "ASSIGNED",
       "assigned_vendor_id": 2,
       "created_by": "created by 2"
     },
@@ -58,7 +58,7 @@ export const seed = {
       "planned_date": "2026-06-13T09:00:00Z",
       "plan_type": "CALIBRATING",
       "priority": "priority 3",
-      "status": "VALID",
+      "status": "PLANNED",
       "assigned_vendor_id": 3,
       "created_by": "created by 3"
     }

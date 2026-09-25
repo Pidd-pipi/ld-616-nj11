@@ -57,5 +57,6 @@ CREATE TABLE IF NOT EXISTS audit_log (
   action TEXT,
   target_type TEXT,
   target_id TEXT,
+  detail TEXT,
   created_at TEXT
 );

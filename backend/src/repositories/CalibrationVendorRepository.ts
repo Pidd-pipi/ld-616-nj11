@@ -1,1 +1,8 @@
-import { seed } from "../seed"; export const calibrationVendorRepository = { findAll: () => seed.calibrationVendor, save: (row: unknown) => row };
+import { seed } from "../seed";
+import type { CalibrationVendor } from "../models/CalibrationVendor";
+
+export const calibrationVendorRepository = {
+  findAll: (): readonly CalibrationVendor[] => seed.calibrationVendor,
+  findById: (id: number): CalibrationVendor | undefined => seed.calibrationVendor.find((vendor) => vendor.id === id),
+  save: (row: unknown) => row
+};

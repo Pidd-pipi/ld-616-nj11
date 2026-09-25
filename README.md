@@ -12,7 +12,22 @@ cp .env.example .env && docker compose up -d
 
 后端健康检查：<http://localhost:21116/health>
 
-后端健康检查：<http://localhost:21116/health>
+### 校准排期接口（挂在 `/api/calibration-plan`）
+
+| 方法 | 路径 | 说明 |
+|---|---|---|
+| GET | `/api/calibration-plan/schedule-board` | 排期看板：返回设备清单（含可用状态）、机构清单（含可用状态）、现有计划与全部冲突 |
+| POST | `/api/calibration-plan/:id/reschedule` | 单条改期：校验设备 7 天内重复、机构同日超 2 项、设备/机构可用状态；存在冲突返回 409 且原计划不变，成功返回改后计划并写审计日志 |
+| POST | `/api/calibration-plan/batch-reschedule` | 批量改期：`{"items":[{"id":1,"planned_date":"...","assigned_vendor_id":3}]}`；整批成功或全部保持原样，409 响应的 `details.result.items` 逐条说明失败原因，成功的改动逐条写审计日志 |
+
+冲突码（`constants/ScheduleConflictCode.ts`）：
+
+- `DEVICE_DUPLICATE_WITHIN_7_DAYS`：同一设备 7 天窗口内已有进行中计划
+- `VENDOR_DAILY_LIMIT_EXCEEDED`：同一机构同一天已有 2 项，第 3 项起冲突
+- `DEVICE_UNAVAILABLE`：设备处于 CALIBRATING / SCRAPPED 状态
+- `VENDOR_UNAVAILABLE`：机构资质状态为 OVERDUE（仅 VALID / DUE_SOON 可承接）
+
+排期规则常量集中在 `backend/src/constants/ScheduleRules.ts`，可调整窗口天数、同日上限与可用状态白名单；冲突检测逻辑在 `backend/src/services/ScheduleConflictService.ts`，批量改期在虚拟排期上逐条预演以保证整批原子性。
 
 
 ## 本地开发方式
