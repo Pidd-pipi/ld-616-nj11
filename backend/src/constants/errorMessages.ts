@@ -1,1 +1,16 @@
-export const ERROR_MESSAGES = { AUTH_REQUIRED: "missing bearer token", RBAC_DENIED: "role denied", VALIDATION_FAILED: "invalid payload", RATE_LIMITED: "too many requests" };
+export const ERROR_MESSAGES = {
+  AUTH_REQUIRED: "missing bearer token",
+  RBAC_DENIED: "role denied",
+  VALIDATION_FAILED: "invalid payload",
+  RATE_LIMITED: "too many requests",
+  PLAN_NOT_FOUND: "calibration plan not found",
+  DEVICE_NOT_FOUND: "measuring device not found",
+  VENDOR_NOT_FOUND: "calibration vendor not found",
+  DEVICE_UNAVAILABLE: "device status does not allow scheduling",
+  VENDOR_UNAVAILABLE: "vendor status does not allow scheduling",
+  DEVICE_DUPLICATE_7D: "device already has another plan within 7 days",
+  VENDOR_DAY_OVERLOAD: "vendor already has 2 plans on the same day",
+  RESCHEDULE_CONFLICT: "reschedule rejected by conflict check; original plan unchanged",
+  BATCH_RESCHEDULE_FAILED: "batch reschedule rejected; all plans left unchanged",
+  DUPLICATE_PLAN_IN_BATCH: "same plan appears more than once in the batch",
+};

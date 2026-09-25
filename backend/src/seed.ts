@@ -29,6 +29,16 @@ export const seed = {
       "owner_dept": "owner dept 3",
       "calibration_cycle_days": "calibration cycle days 3",
       "status": "VALID"
+    },
+    {
+      "id": 4,
+      "device_code": "device code 4",
+      "name": "name 4",
+      "device_type": "SCRAPPED",
+      "accuracy_level": "LOW",
+      "owner_dept": "owner dept 4",
+      "calibration_cycle_days": "calibration cycle days 4",
+      "status": "SCRAPPED"
     }
   ],
   "calibrationPlan": [
@@ -61,6 +71,56 @@ export const seed = {
       "status": "VALID",
       "assigned_vendor_id": 3,
       "created_by": "created by 3"
+    },
+    {
+      "id": 4,
+      "device_id": 1,
+      "planned_date": "2026-06-12T09:00:00Z",
+      "plan_type": "DUE_SOON",
+      "priority": "priority 4",
+      "status": "PLANNED",
+      "assigned_vendor_id": 2,
+      "created_by": "created by 4"
+    },
+    {
+      "id": 5,
+      "device_id": 2,
+      "planned_date": "2026-06-20T09:00:00Z",
+      "plan_type": "OVERDUE",
+      "priority": "priority 5",
+      "status": "PLANNED",
+      "assigned_vendor_id": 3,
+      "created_by": "created by 5"
+    },
+    {
+      "id": 6,
+      "device_id": 3,
+      "planned_date": "2026-06-20T10:00:00Z",
+      "plan_type": "CALIBRATING",
+      "priority": "priority 6",
+      "status": "ASSIGNED",
+      "assigned_vendor_id": 3,
+      "created_by": "created by 6"
+    },
+    {
+      "id": 7,
+      "device_id": 1,
+      "planned_date": "2026-06-20T11:00:00Z",
+      "plan_type": "DUE_SOON",
+      "priority": "priority 7",
+      "status": "PLANNED",
+      "assigned_vendor_id": 3,
+      "created_by": "created by 7"
+    },
+    {
+      "id": 8,
+      "device_id": 4,
+      "planned_date": "2026-06-21T09:00:00Z",
+      "plan_type": "DUE_SOON",
+      "priority": "priority 8",
+      "status": "PLANNED",
+      "assigned_vendor_id": 3,
+      "created_by": "created by 8"
     }
   ],
   "calibrationCertificate": [

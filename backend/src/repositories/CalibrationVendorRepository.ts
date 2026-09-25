@@ -1,1 +1,1 @@
-import { seed } from "../seed"; export const calibrationVendorRepository = { findAll: () => seed.calibrationVendor, save: (row: unknown) => row };
+import { seed } from "../seed"; export const calibrationVendorRepository = { findAll: () => seed.calibrationVendor, findById: (id: number) => seed.calibrationVendor.find((row) => row.id === id), save: (row: unknown) => row };

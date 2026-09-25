@@ -14,6 +14,26 @@ cp .env.example .env && docker compose up -d
 
 后端健康检查：<http://localhost:21116/health>
 
+### 排期看板与改期
+
+- `GET /api/calibration-plan/schedule-board`：排期看板，返回设备、机构、计划及当前冲突（设备七天内重复、机构同日超过 2 项、设备/机构不可用）。
+- `POST /api/calibration-plan/:id/reschedule`：单条改期。有冲突时返回 409 与逐条原因，原计划保持不变。
+
+```bash
+curl -X POST http://localhost:21116/api/calibration-plan/3/reschedule \
+  -H 'Content-Type: application/json' \
+  -d '{"planned_date":"2026-07-01T09:00:00Z","assigned_vendor_id":3}'
+```
+
+- `POST /api/calibration-plan/batch-reschedule`：批量改期，整批成功或全部保持原样；失败时返回 409 并逐条说明原因。
+
+```bash
+curl -X POST http://localhost:21116/api/calibration-plan/batch-reschedule \
+  -H 'Content-Type: application/json' \
+  -d '{"items":[{"id":2,"planned_date":"2026-07-02T09:00:00Z","assigned_vendor_id":3},{"id":5,"planned_date":"2026-07-10T09:00:00Z","assigned_vendor_id":3}]}'
+```
+
+改期冲突规则（窗口天数、机构同日上限、双方可用状态）集中在 `backend/src/constants/ScheduleRules.ts`；成功的改期会写入审计日志（`CalibrationPlan.reschedule` / `CalibrationPlan.batchReschedule`，见 `constants/logTemplates.ts`）。
 
 ## 本地开发方式
 
@@ -54,9 +74,10 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 
 ## 枚举/常量出现位置清单
 
-- DeviceCalibrationStatus: constants/DeviceCalibrationStatus、types/DeviceCalibrationStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
-- PlanStatus: constants/PlanStatus、types/PlanStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- DeviceCalibrationStatus: constants/DeviceCalibrationStatus、types/DeviceCalibrationStatus、constants/ScheduleRules（不可用状态列表）、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- PlanStatus: constants/PlanStatus、types/PlanStatus、constants/ScheduleRules（已终结状态列表）、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - CertificateResult: constants/CertificateResult、types/CertificateResult、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- ScheduleRules: constants/ScheduleRules 定义改期冲突规则，被 services/ScheduleConflictService、services/CalibrationPlanService 引用；冲突原因码见 constants/errorCodes 与 constants/errorMessages。
 
 ## 为什么会牵一发动全身
 

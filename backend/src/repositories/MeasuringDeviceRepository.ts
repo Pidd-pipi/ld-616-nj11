@@ -1,1 +1,1 @@
-import { seed } from "../seed"; export const measuringDeviceRepository = { findAll: () => seed.measuringDevice, save: (row: unknown) => row };
+import { seed } from "../seed"; export const measuringDeviceRepository = { findAll: () => seed.measuringDevice, findById: (id: number) => seed.measuringDevice.find((row) => row.id === id), save: (row: unknown) => row };
